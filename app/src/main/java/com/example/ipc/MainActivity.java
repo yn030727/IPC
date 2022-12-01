@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         //序列化过程将元素添加到文件当中
         //反序列化过程将元素从文件当中读取出来
-        //上述代码演示了采用
+        //上述代码演示了采用Serializable方式序列化对象的过程
+
     }
 }
