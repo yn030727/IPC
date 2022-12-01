@@ -9,29 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IPC" >
-
+        <activity
+            android:name=".BookManagerActivity"
+            android:exported="false" />
         <activity
             android:name=".ThirdActivity"
             android:configChanges="screenLayout"
-            android:process="com.example.ipc.remote"
-            android:exported="false" />
+            android:exported="false"
+            android:process="com.example.ipc.remote" />
         <activity
             android:name=".SecondActivity"
             android:configChanges="screenLayout"
-            android:process=":remote"
-            android:exported="false" />
+            android:exported="false"
+            android:process=":remote" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
-            android:launchMode="standard">
+            android:launchMode="standard" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
