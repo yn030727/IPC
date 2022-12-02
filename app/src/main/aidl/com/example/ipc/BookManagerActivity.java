@@ -3,10 +3,13 @@ package com.example.ipc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+
+import java.io.Serializable;
 
 public class BookManagerActivity extends AppCompatActivity {
 
@@ -14,7 +17,11 @@ public class BookManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_manager);
-
+        //传递序列化数据
+/*        Intent intent = new Intent(BookManagerActivity.this,SecondActivity.class);
+        Book1 book = new Book1(1,"sea and older");
+        intent.putExtra("data",book);
+        */
     }
 
     private IBookManager2 mRemoteBookManager;
