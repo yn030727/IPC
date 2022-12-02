@@ -2,7 +2,11 @@ package com.example.ipc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.ipc.utils.MyConstants;
 import com.example.ipc.utils.MyUtils;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //反序列化过程将元素从文件当中读取出来
         //上述代码演示了采用Serializable方式序列化对象的过程
 
+
     }
 
 
@@ -54,7 +59,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("Ning","onResume");
         persistToFile();
+        Button button = findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private void persistToFile(){
         new Thread(new Runnable() {
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //创建User实例，是序列化对象
                 User user = new User(1 , "helloWorld" , false);
+                Log.d("Ning","User make ");
                 //创建目录
                 File dir = new File(MyConstants.NING_PATH);
                 //创建失败就用方法再创建一个目录
@@ -82,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
                     //关闭输出流
                     MyUtils.close(objectOutputStream);
                 }
-
             }
         }).start();
     }

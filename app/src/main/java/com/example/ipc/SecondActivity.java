@@ -3,6 +3,7 @@ package com.example.ipc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,17 +23,13 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        Log.d("Ning","SecondActivity");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("Ning","SecondActiviy");
         User user = (User) getIntent().getSerializableExtra("extra_user");
         recoverFromFile();
     }
@@ -43,11 +40,14 @@ public class SecondActivity extends AppCompatActivity {
             public void run() {
                 User user = null;
                 File cachedFile = new File(MyConstants.CACHE_FILE_PATH);
-                ObjectInputStream objectInputStream = null ;
+                Log.d("Ning", "recoverFromFile:"+cachedFile.toString());
                 if (cachedFile.exists()) {
+                    Log.d("Ning","cachedFiloe exists");
+                    ObjectInputStream objectInputStream = null ;
                     try {
                         objectInputStream = new ObjectInputStream(new FileInputStream(cachedFile));
                         user = (User) objectInputStream.readObject();
+                        Log.d("Ning",user.userName+user.userId+user.isMale);
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (ClassNotFoundException e) {
