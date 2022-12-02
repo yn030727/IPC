@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Book implements Parcelable {
 
-    protected Book(Parcel in) {
+    public Book(Parcel in) {
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {

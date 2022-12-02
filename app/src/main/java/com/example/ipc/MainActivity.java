@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.ipc.utils.MyConstants;
+import com.example.ipc.utils.MyUtils;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -42,8 +46,44 @@ public class MainActivity extends AppCompatActivity {
         //反序列化过程将元素从文件当中读取出来
         //上述代码演示了采用Serializable方式序列化对象的过程
 
+    }
 
 
+    //我们在MainActivity的onResume中序列化一个User对象到sd卡上的一个文件里
+    //然后在SecondActivity中能够正确恢复User对象的值。
+    @Override
+    protected void onResume() {
+        super.onResume();
+        persistToFile();
+    }
+    private void persistToFile(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //创建User实例，是序列化对象
+                User user = new User(1 , "helloWorld" , false);
+                //创建目录
+                File dir = new File(MyConstants.NING_PATH);
+                //创建失败就用方法再创建一个目录
+                if(!dir.exists()){
+                    dir.mkdirs();
+                }
+                //创建文件
+                File cachedFile = new File (MyConstants.CACHE_FILE_PATH);
+                ObjectOutputStream objectOutputStream = null;
+                try {
+                    //打开输出流
+                    objectOutputStream = new ObjectOutputStream(new FileOutputStream(cachedFile));
+                    //写入user信息
+                    objectOutputStream.writeObject(user);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    //关闭输出流
+                    MyUtils.close(objectOutputStream);
+                }
 
+            }
+        }).start();
     }
 }
